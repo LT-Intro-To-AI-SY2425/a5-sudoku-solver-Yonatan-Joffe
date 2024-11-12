@@ -59,7 +59,6 @@ class Board:
         row_str = ""
         for r in self.rows:
             row_str += f"{r}\n"
-
         return f"num_nums_placed: {self.num_nums_placed}\nboard (rows): \n{row_str}"
 
     def print_pretty(self):
@@ -139,9 +138,14 @@ class Board:
             column - index of the column to assign
             assignment - value to place at given row, column coordinate
         """
-        pass
+        self.rows[row][column] = assignment
 
-
+        for i in range(self.size):
+            remove_if_exists(self.rows[row][i], assignment)
+            remove_if_exists(self.rows[i][column], assignment)
+        print(self.subgrid_coordinates(row, column))
+        for i, j in self.subgrid_coordinates(row,column):
+            remove_if_exists(self.rows[i][j], assignment)
 def DFS(state: Board) -> Board:
     """Performs a depth first search. Takes a Board and attempts to assign values to
     most constrained cells until a solution is reached or a mistake has been made at
@@ -175,6 +179,21 @@ def BFS(state: Board) -> Board:
 if __name__ == "__main__":
     # uncomment the below lines once you've implemented the board class
    
+    b = Board()
+    b.print_pretty()
+    b.update(0,0,1)
+    b.print_pretty()
+    b.update(0,2,2)
+    b.update(1,0,9)
+    b.update(1,1,8)
+    b.update(0,4,3)
+    b.update(1,3,2)
+    b.update(1,6,4)
+    b.update(1,8,3)
+    print(b)
+    b.print_pretty()
+
+
     # # CODE BELOW HERE RUNS YOUR BFS/DFS
     # print("<<<<<<<<<<<<<< Solving Sudoku >>>>>>>>>>>>>>")
 
