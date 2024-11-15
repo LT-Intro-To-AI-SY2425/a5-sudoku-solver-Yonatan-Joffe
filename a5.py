@@ -105,8 +105,18 @@ class Board:
         Returns:
             a tuple of row, column index identifying the most constrained cell
         """
-        pass
-
+        mini = 9
+        row = 0
+        column = 0
+        for i in range(self.size):
+            for j in range(self.size):
+                cell = self.rows[i][j]
+                if isinstance(cell, list) and len(cell) < mini:
+                    mini = len(cell)
+                    row = i
+                    column = j
+                    #print(row, column, mini)
+        return (row, column)
     def failure_test(self) -> bool:
         """Check if we've failed to correctly fill out the puzzle. If we find a cell
         that contains an [], then we have no more possibilities for the cell but haven't
@@ -128,13 +138,13 @@ class Board:
 
     def update(self, row: int, column: int, assignment: int) -> None:
         """Assigns the given value to the cell given by passed in row and column
-        coordinates. By assigning we mean set the cell to the value so instead the cell
-        being a list of possibities it's just the new assignment value.  Update all
-        affected cells (row, column & subgrid) to remove the possibility of assigning
+    ) to remove the possibility of assigning
         the given value.
 
         Args:
-            row - index of the row to assign
+            row - index of the row to ass    coordinates. By assigning we mean set the cell to the value so instead the cell
+        being a list of possibities it's just the new assignment value.  Update all
+        affected cells (row, column & subgridign
             column - index of the column to assign
             assignment - value to place at given row, column coordinate
         """
