@@ -1,5 +1,5 @@
 import a5
-
+ 
 # sets of moves for the different games
 first_moves = [
     (0, 1, 7),
